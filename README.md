@@ -1,7 +1,7 @@
 
 -----------------------
 
-# AWooCommerce - Country Based Payments
+# WooCommerce - Country Based Payments
 
 Choose which payment gateway will be available in country/countrie
 
