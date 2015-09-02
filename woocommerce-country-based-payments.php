@@ -4,7 +4,7 @@
 Plugin Name: WooCommerce - Country Based Payments
 Plugin URI:  https://wordpress.org/plugins/woocommerce-country-based-payments/
 Description: Choose in which country certain payment gateway will be available
-Version:     1.0
+Version:     1.1.3
 Author:      Ivan Paulin
 Author URI:  http://ivanpaulin.com
 License:     GPL2
@@ -32,7 +32,7 @@ class WoocommerceCountryBasedPayment {
         add_action('woocommerce_checkout_update_order_review', array($this, 'setSelectedCountry'), 10);
 
         // check if ajax request
-        if(defined( 'DOING_AJAX' ) && DOING_AJAX) {
+        if(!is_admin() && 'update_order_review' == $_GET['wc-ajax']) {
             add_filter( 'woocommerce_available_payment_gateways', array($this, 'availablePaymentGateways'), 10, 1 );
         }
     }
