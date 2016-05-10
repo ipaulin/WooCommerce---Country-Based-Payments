@@ -1,10 +1,10 @@
 === WooCommerce - Country Based Payments ===
-Contributors: ivan_paulin
+Contributors: ivan_paulin, mensmaximus
 Donate link: http://ivanpaulin.com/
 Tags: woocommerce, payment gateway, country, countries, payment gateways, country payment
 Requires at least: 4.2
-Tested up to: 4.4.2
-Stable tag: 1.1.4
+Tested up to: 4.5.2
+Stable tag: 1.1.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -17,7 +17,7 @@ This plugin gives you option to choose which payment gateway will be available i
 If you need to have certain payment gateway to be available in all countries, don't set option for it.
 
 This WooCommerce addon is compatible with:
-* WooCommerce 2.5.2
+* WooCommerce 2.5.5
 
 == Installation ==
 
@@ -46,3 +46,6 @@ This WooCommerce addon is compatible with:
 
 = 1.1.4 =
 * Fix - PHP notice undefined index "wc-ajax"
+
+= 1.1.5 =
+* Fix - Resolve issue with the payment gateway selection after cancellation of payment
