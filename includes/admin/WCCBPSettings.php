@@ -3,6 +3,11 @@
 /**
  * Admin settings in WooCommerce
  */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 class WCCBPSettings {
 
     private $id;
@@ -37,8 +42,8 @@ class WCCBPSettings {
 
     /**
      * Cerate input field for every available payment gateway
-     * 
-     * @return $fields array 
+     *
+     * @return $fields array
      */
     public function createFields()
     {
