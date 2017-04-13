@@ -16,9 +16,8 @@ If you need to have certain payment gateway to be available in all countries, do
 ### Compatibility
 
 This WooCommerce addon is compatible with:
-* WooCommerce 2.6.11
-* WooCommerce 2.7.0 - Beta 1
-* WordPress 4.7.1
+* WooCommerce 3.0.2
+* WordPress 4.7.3
 
 ### Installation
 
