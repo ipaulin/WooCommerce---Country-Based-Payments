@@ -47,7 +47,7 @@ class WCCBPSettings {
      */
     public function createFields()
     {
-        $available_gateways = WC()->payment_gateways->get_available_payment_gateways();
+        $available_gateways = WC()->payment_gateways->payment_gateways();
 
         $fields = array();
 
