@@ -3,7 +3,7 @@
 
 # WooCommerce - Country Based Payments
 
-Choose which payment gateway will be available in country/countrie
+Choose which payment gateway will be available in country/countries
 
 -----------------------
 
@@ -13,11 +13,15 @@ This plugin gives you option to choose which payment gateway will be available i
 
 If you need to have certain payment gateway to be available in all countries, don't set option for it.
 
+-- GDPR --
+This plugin does not collect or modify any personal data.
+This plugin shows/hide payment gateways based on the country which the customer selects during the checkout.
+
 ### Compatibility
 
 This WooCommerce addon is compatible with:
-* WooCommerce 3.0.7
-* WordPress 4.7.5
+* WooCommerce 3.4.3
+* WordPress 4.9.7
 
 ### Installation
 
