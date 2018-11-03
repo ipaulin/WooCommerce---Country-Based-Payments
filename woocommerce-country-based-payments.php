@@ -16,8 +16,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-// define text domain
-define('WCCBP_TEXT_DOMAIN', 'wccbp');
 
 
 class WoocommerceCountryBasedPayment {
@@ -131,3 +129,50 @@ if ( is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
 
 	new WoocommerceCountryBasedPayment();
 }
+
+// Load Freemius SDK
+// Create a helper function for easy SDK access.
+function wcbp_fs() {
+    global $wcbp_fs;
+
+    if ( ! isset( $wcbp_fs ) ) {
+        // Include Freemius SDK.
+        require_once dirname(__FILE__) . '/includes/freemius/start.php';
+
+        $wcbp_fs = fs_dynamic_init( array(
+            'id'                  => '2788',
+            'slug'                => 'woocommerce-country-based-payments',
+            'type'                => 'plugin',
+            'public_key'          => 'pk_cbdb518bd47595e667e3992ea2e2f',
+            'is_premium'          => false,
+            'has_addons'          => false,
+            'has_paid_plans'      => false,
+            'menu'                => array(
+                'slug'           => 'wc-settings&tab=wccbp',
+                'override_exact' => true,
+                'account'        => false,
+                'contact'        => false,
+                'support'        => false,
+                'parent'         => array(
+                    'slug' => 'woocommerce',
+                ),
+            ),
+        ) );
+    }
+
+    return $wcbp_fs;
+}
+
+// Init Freemius.
+wcbp_fs();
+// Signal that SDK was initiated.
+do_action( 'wcbp_fs_loaded' );
+
+function wcbp_fs_settings_url() {
+    return admin_url( 'admin.php?page=wc-settings&tab=wccbp' );
+}
+
+wcbp_fs()->add_filter( 'connect_url', 'wcbp_fs_settings_url' );
+wcbp_fs()->add_filter( 'after_skip_url', 'wcbp_fs_settings_url' );
+wcbp_fs()->add_filter( 'after_connect_url', 'wcbp_fs_settings_url' );
+wcbp_fs()->add_filter( 'after_pending_connect_url', 'wcbp_fs_settings_url' );
