@@ -148,7 +148,7 @@ function wcbp_fs() {
             'has_addons'          => false,
             'has_paid_plans'      => false,
             'menu'                => array(
-                'slug'           => 'wc-settings&tab=wccbp',
+                'slug'           => 'wc-settings',
                 'override_exact' => true,
                 'account'        => false,
                 'contact'        => false,
