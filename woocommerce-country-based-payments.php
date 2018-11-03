@@ -32,7 +32,9 @@ class WoocommerceCountryBasedPayment {
 
         add_action('woocommerce_loaded', array($this, 'loadSettings'));
 
-        add_action('woocommerce_checkout_update_order_review', array($this, 'setSelectedCountry'), 10);
+		add_action('woocommerce_checkout_update_order_review', array($this, 'setSelectedCountry'), 10);
+		
+		add_action( 'plugins_loaded', array( $this, 'load_plugin_textdomain' ) );
 
         // check if ajax request
         if(!is_admin() && (isset($_REQUEST['wc-ajax']) && 'update_order_review' == $_REQUEST['wc-ajax'])) {
@@ -43,7 +45,14 @@ class WoocommerceCountryBasedPayment {
         if( !is_admin() && isset( $_GET['pay_for_order'] ) &&  true == $_GET['pay_for_order'] ) {
             add_filter( 'woocommerce_available_payment_gateways', array( $this, 'available_payment_gateways_after_cancelation'), 10, 1 );
         }
-    }
+	}
+	
+	/**
+	 * Load textdomain
+	 */
+	public function load_plugin_textdomain() {
+		load_plugin_textdomain( 'wccbp', FALSE, basename( dirname( __FILE__ ) ) . '/languages/' );
+	}
 
 
     /**

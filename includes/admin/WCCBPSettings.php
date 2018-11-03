@@ -19,8 +19,6 @@ class WCCBPSettings {
     {
         $this->id = 'wccbp';
 
-        $this->text_domain = WCCBP_TEXT_DOMAIN;
-
         add_filter('woocommerce_settings_tabs_array', array($this, 'addSettingsTab'), 40);
 
         add_action('woocommerce_settings_tabs_' . $this->id, array($this, 'addSectionToTab'));
@@ -34,7 +32,7 @@ class WCCBPSettings {
      */
     public function addSettingsTab($tabs)
     {
-        $tabs[$this->id] = __('WCCBP', $this->text_domain);
+        $tabs[$this->id] = __( 'WCCBP', 'wccbp' );
 
         return $tabs;
     }
@@ -73,8 +71,8 @@ class WCCBPSettings {
         $section = array();
 
         $section[] = array(
-                'title' => __('Country Based Payments', $this->text_domain),
-                'desc'  => __('Select in which countries payment gateways will be available', $this->text_domain),
+                'title' => __( 'Country Based Payments', 'wccbp' ),
+                'desc'  => __( 'Select in which countries payment gateways will be available', 'wccbp' ),
                 'type'  => 'title',
                 'id'    => $this->id,
             );
