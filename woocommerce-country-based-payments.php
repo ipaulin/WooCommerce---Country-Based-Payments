@@ -1,15 +1,17 @@
 <?php
-/*
-Plugin Name: WooCommerce - Country Based Payments
-Plugin URI:  https://wordpress.org/plugins/woocommerce-country-based-payments/
-Description: Choose in which country certain payment gateway will be available
-Version:     1.1.8
-Author:      Ivan Paulin
-Author URI:  http://ivanpaulin.com
-License:     GPL2
-License URI: https://www.gnu.org/licenses/gpl-2.0.html
-Domain Path: /languages
-Text Domain: wccbp
+/**
+ * Plugin Name: WooCommerce - Country Based Payments
+ * Plugin URI:  https://wordpress.org/plugins/woocommerce-country-based-payments/
+ * Description: Choose in which country certain payment gateway will be available
+ * Version:     1.2.0
+ * Author:      Ivan Paulin
+ * Author URI:  http://ivanpaulin.com
+ * License:     GPL2
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
+ * Domain Path: /languages
+ * Text Domain: wccbp
+ * WC requires at least: 3.4.0
+ * WC tested up to: 3.5.1
 */
 
 if ( ! defined( 'ABSPATH' ) ) {
