@@ -8,9 +8,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class WCCBPSettings {
+class WCCBPSettings extends WC_Settings_Page {
 
-    private $id;
+    protected $id;
 
     private $text_domain;
 

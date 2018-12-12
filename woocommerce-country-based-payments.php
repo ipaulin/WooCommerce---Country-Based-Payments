@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce - Country Based Payments
  * Plugin URI:  https://wordpress.org/plugins/woocommerce-country-based-payments/
  * Description: Choose in which country certain payment gateway will be available
- * Version:     1.2.0
+ * Version:     1.2.1
  * Author:      Ivan Paulin
  * Author URI:  http://ivanpaulin.com
  * License:     GPL2
@@ -11,7 +11,7 @@
  * Domain Path: /languages
  * Text Domain: wccbp
  * WC requires at least: 3.4.0
- * WC tested up to: 3.5.1
+ * WC tested up to: 3.5.2
 */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -30,7 +30,7 @@ class WoocommerceCountryBasedPayment {
     {
         $this->id = 'wccbp';
 
-        add_action('woocommerce_loaded', array($this, 'loadSettings'));
+        add_filter('woocommerce_get_settings_pages', array($this, 'loadSettings'));
 
 		add_action('woocommerce_checkout_update_order_review', array($this, 'setSelectedCountry'), 10);
 		
@@ -60,7 +60,8 @@ class WoocommerceCountryBasedPayment {
      */
     public function loadSettings()
     {
-        new WCCBPSettings();
+        require 'includes/admin/WCCBPSettings.php';
+        return new WCCBPSettings();
     }
 
 
@@ -126,8 +127,6 @@ if ( ! function_exists( 'is_plugin_active_for_network' ) ) {
 
 if ( is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
 	// Plugin is activated
-
-	require 'includes/admin/WCCBPSettings.php';
 
 	new WoocommerceCountryBasedPayment();
 }
