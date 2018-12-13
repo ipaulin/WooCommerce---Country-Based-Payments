@@ -12,30 +12,33 @@ class WCCBPSettings extends WC_Settings_Page {
 
     protected $id;
 
-    private $text_domain;
-
-
     public function __construct()
     {
         $this->id = 'wccbp';
 
-        add_filter('woocommerce_settings_tabs_array', array($this, 'addSettingsTab'), 40);
+        $this->label = __( 'WCCBP', 'my-textdomain' );
+
+		add_filter( 'woocommerce_settings_tabs_array', array( $this, 'add_settings_page' ), 20 );
+
+		add_action( 'woocommerce_settings_' . $this->id, array( $this, 'output' ) );
+
+		add_action( 'woocommerce_sections_' . $this->id, array( $this, 'output_sections' ) );
 
         add_action('woocommerce_settings_tabs_' . $this->id, array($this, 'addSectionToTab'));
 
         add_action('woocommerce_update_options_' . $this->id, array($this, 'updateOptions'));
-    }
+	}
+	
+	/**
+	 * Output the settings
+	 */
+	public function output() {
 
+		global $current_section;
 
-    /**
-     * Create settings tab for WooCommercer settings
-     */
-    public function addSettingsTab($tabs)
-    {
-        $tabs[$this->id] = __( 'WCCBP', 'wccbp' );
-
-        return $tabs;
-    }
+		$settings = $this->get_settings( $current_section );
+		WC_Admin_Settings::output_fields( $settings );
+	}
 
 
     /**
