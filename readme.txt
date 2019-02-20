@@ -3,8 +3,8 @@ Contributors: ivan_paulin, mensmaximus, freemius
 Donate link: http://ivanpaulin.com/
 Tags: woocommerce, payment gateway, country, countries, payment gateways, country payment
 Requires at least: 4.7
-Tested up to: 4.9.8
-Stable tag: 1.2.2
+Tested up to: 5.0.3
+Stable tag: 1.2.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -17,7 +17,7 @@ This plugin gives you option to choose which payment gateway will be available i
 If you need to have certain payment gateway to be available in all countries, don't set option for it.
 
 This WooCommerce addon is compatible with:
-* WooCommerce 3.5.2
+* WooCommerce 3.5.4
 
 == Installation ==
 
@@ -75,3 +75,6 @@ This WooCommerce addon is compatible with:
 
 = 1.2.2 =
 * Fix fatal error when plugin WooCommerce Germanized is used
+
+= 1.2.3 =
+* Fix fatal error when plugin is used with WPML WooCommerce Multilingual

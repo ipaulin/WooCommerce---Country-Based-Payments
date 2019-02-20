@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce - Country Based Payments
  * Plugin URI:  https://wordpress.org/plugins/woocommerce-country-based-payments/
  * Description: Choose in which country certain payment gateway will be available
- * Version:     1.2.2
+ * Version:     1.2.3
  * Author:      Ivan Paulin
  * Author URI:  http://ivanpaulin.com
  * License:     GPL2
@@ -11,7 +11,7 @@
  * Domain Path: /languages
  * Text Domain: wccbp
  * WC requires at least: 3.4.0
- * WC tested up to: 3.5.2
+ * WC tested up to: 3.5.4
 */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -37,8 +37,11 @@ class WoocommerceCountryBasedPayment {
 		add_action( 'plugins_loaded', array( $this, 'load_plugin_textdomain' ) );
 
         // check if ajax request
-        if(!is_admin() && (isset($_REQUEST['wc-ajax']) && 'update_order_review' == $_REQUEST['wc-ajax'])) {
-            add_filter( 'woocommerce_available_payment_gateways', array($this, 'availablePaymentGateways'), 10, 1 );
+        if( !is_admin() && ( isset( $_REQUEST['wc-ajax'] ) && 'update_order_review' == $_REQUEST['wc-ajax'] ) ) {
+			// Fix WPML WooCommerce Multilingual error
+			add_filter( 'wcml_supported_currency_payment_gateways', array( $this, 'availablePaymentGateways' ), 90, 1 );
+
+            add_filter( 'woocommerce_available_payment_gateways', array( $this, 'availablePaymentGateways' ), 10, 1 );
         }
 
         // check if pay_for page

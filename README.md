@@ -20,8 +20,8 @@ This plugin shows/hide payment gateways based on the country which the customer 
 ### Compatibility
 
 This WooCommerce addon is compatible with:
-* WooCommerce 3.5.2
-* WordPress 4.9.8
+* WooCommerce 3.5.4
+* WordPress 5.0.3
 
 ### Installation
 
