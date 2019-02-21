@@ -4,7 +4,7 @@ Donate link: http://ivanpaulin.com/
 Tags: woocommerce, payment gateway, country, countries, payment gateways, country payment
 Requires at least: 4.7
 Tested up to: 5.0.3
-Stable tag: 1.2.3
+Stable tag: 1.2.3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -78,3 +78,6 @@ This WooCommerce addon is compatible with:
 
 = 1.2.3 =
 * Fix fatal error when plugin is used with WPML WooCommerce Multilingual
+
+= 1.2.3.1 =
+* Fix bug in previous release

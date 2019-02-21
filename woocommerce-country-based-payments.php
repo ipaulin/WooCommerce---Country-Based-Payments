@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce - Country Based Payments
  * Plugin URI:  https://wordpress.org/plugins/woocommerce-country-based-payments/
  * Description: Choose in which country certain payment gateway will be available
- * Version:     1.2.3
+ * Version:     1.2.3.1
  * Author:      Ivan Paulin
  * Author URI:  http://ivanpaulin.com
  * License:     GPL2
@@ -36,17 +36,17 @@ class WoocommerceCountryBasedPayment {
 		
 		add_action( 'plugins_loaded', array( $this, 'load_plugin_textdomain' ) );
 
-        // check if ajax request
-        if( !is_admin() && ( isset( $_REQUEST['wc-ajax'] ) && 'update_order_review' == $_REQUEST['wc-ajax'] ) ) {
+		// check if ajax request
+		if ( ! is_admin() && ( isset( $_REQUEST['wc-ajax'] ) && 'update_order_review' == $_REQUEST['wc-ajax'] ) ) {
 			// Fix WPML WooCommerce Multilingual error
 			add_filter( 'wcml_supported_currency_payment_gateways', array( $this, 'availablePaymentGateways' ), 90, 1 );
 
-            add_filter( 'woocommerce_available_payment_gateways', array( $this, 'availablePaymentGateways' ), 10, 1 );
-        }
+			add_filter( 'woocommerce_available_payment_gateways', array( $this, 'availablePaymentGateways' ), 10, 1 );
+		}
 
         // check if pay_for page
         if( !is_admin() && isset( $_GET['pay_for_order'] ) &&  true == $_GET['pay_for_order'] ) {
-            add_filter( 'woocommerce_available_payment_gateways', array( $this, 'available_payment_gateways_after_cancelation'), 10, 1 );
+            add_filter( 'woocommerce_available_payment_gateways', array( $this, 'available_payment_gateways_after_cancelation' ), 10, 1 );
         }
 	}
 	
@@ -79,23 +79,26 @@ class WoocommerceCountryBasedPayment {
     }
 
 
-    /**
-     * List through available payment gateways,
-     * check if certain payment gateway is enabled for country,
-     * if no, unset it from $payment_gateways array
-     *
-     * @return array with updated list of available payment gateways
-     */
-    public function availablePaymentGateways($payment_gateways)
-    {
-        foreach ($payment_gateways as $gateway) {
-            if(get_option($this->id . '_' . $gateway->id) && !in_array($this->selected_country, get_option($this->id . '_' . $gateway->id))) {
-                unset($payment_gateways[$gateway->id]);
-            }
-        }
+	/**
+	 * List through available payment gateways,
+	 * check if certain payment gateway is enabled for country,
+	 * if no, unset it from $payment_gateways array
+	 *
+	 * @return array with updated list of available payment gateways
+	 */
+	public function availablePaymentGateways( $payment_gateways ) {
+		
+		foreach ( $payment_gateways as $key => $value ) {
+			// check if WCML array
+			$gateway_id = ( is_object( $value ) && isset( $value->id ) ) ? $value->id : $key;
+			$gateway_availability = get_option( $this->id . '_' . $gateway_id );
 
-        return $payment_gateways;
-    }
+			if ( $gateway_availability && ! in_array( $this->selected_country, $gateway_availability ) ) {
+				unset( $payment_gateways[ $gateway_id ] );
+			}
+		}
+		return $payment_gateways;
+	}
 
     /**
      * List through available payment gateways,
