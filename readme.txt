@@ -80,4 +80,4 @@ This WooCommerce addon is compatible with:
 * Fix fatal error when plugin is used with WPML WooCommerce Multilingual
 
 = 1.2.3.1 =
-* Fix bug in previous release
+* Fix bug with WCML in previous release
