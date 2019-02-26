@@ -3,8 +3,8 @@ Contributors: ivan_paulin, mensmaximus, freemius
 Donate link: http://ivanpaulin.com/
 Tags: woocommerce, payment gateway, country, countries, payment gateways, country payment
 Requires at least: 4.7
-Tested up to: 5.0.3
-Stable tag: 1.2.4
+Tested up to: 5.1
+Stable tag: 1.2.4.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -84,3 +84,9 @@ This WooCommerce addon is compatible with:
 
 = 1.2.4 =
 * Update Freemius SDK
+
+= 1.2.4.1 =
+* Temporarily disable Freemius SDK until the bug is resolved
+
+= 1.2.4.2 =
+* Fix bug with Freemius SDK
