@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce - Country Based Payments
  * Plugin URI:  https://wordpress.org/plugins/woocommerce-country-based-payments/
  * Description: Choose in which country certain payment gateway will be available
- * Version:     1.2.4.2
+ * Version:     1.3.1
  * Author:      Ivan Paulin
  * Author URI:  http://ivanpaulin.com
  * License:     GPL2
@@ -11,7 +11,7 @@
  * Domain Path: /languages
  * Text Domain: wccbp
  * WC requires at least: 3.4.0
- * WC tested up to: 3.5.4
+ * WC tested up to: 4.0.1
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -22,13 +22,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Initialize the plugin, settings page and handle plugin logic
  */
 class WoocommerceCountryBasedPayment {
-
-	/**
-	 * Country ID
-	 *
-	 * @var String
-	 */
-	private $selected_country;
 
 	/**
 	 * Plugin ID
@@ -45,12 +38,10 @@ class WoocommerceCountryBasedPayment {
 
 		add_filter( 'woocommerce_get_settings_pages', array( $this, 'load_settings' ), 16 );
 
-		add_action( 'woocommerce_checkout_update_order_review', array( $this, 'set_selected_country' ), 10 );
-
 		add_action( 'plugins_loaded', array( $this, 'load_plugin_textdomain' ) );
 
 		// Check if ajax request.
-		if ( ! is_admin() && ( isset( $_REQUEST['wc-ajax'] ) && 'update_order_review' == $_REQUEST['wc-ajax'] ) ) {
+		if ( ! is_admin() ) {
 			// Fix WPML WooCommerce Multilingual error.
 			add_filter( 'wcml_supported_currency_payment_gateways', array( $this, 'available_payment_gateways' ), 90, 1 );
 
@@ -81,15 +72,6 @@ class WoocommerceCountryBasedPayment {
 
 
 	/**
-	 * Set selected country on Ajax request in checkout process
-	 * Country code is used.
-	 */
-	public function set_selected_country() {
-		$this->selected_country = sanitize_text_field( $_REQUEST['country'] );
-	}
-
-
-	/**
 	 * List through available payment gateways,
 	 * check if certain payment gateway is enabled for country,
 	 * if no, unset it from $payment_gateways array
@@ -98,12 +80,15 @@ class WoocommerceCountryBasedPayment {
 	 * @return array with updated list of available payment gateways
 	 */
 	public function available_payment_gateways( $payment_gateways ) {
+		if ( is_null( WC()->customer ) || ! WC()->customer instanceof WC_Customer ) {
+			return $payment_gateways;
+		}
 		foreach ( $payment_gateways as $key => $value ) {
 			// Check if WCML array.
 			$gateway_id = ( is_object( $value ) && isset( $value->id ) ) ? $value->id : $key;
 			$gateway_availability = get_option( $this->id . '_' . $gateway_id );
 
-			if ( $gateway_availability && ! in_array( $this->selected_country, $gateway_availability ) ) {
+			if ( $gateway_availability && ! in_array( WC()->customer->get_billing_country(), $gateway_availability ) ) {
 				unset( $payment_gateways[ $gateway_id ] );
 			}
 		}
@@ -122,10 +107,10 @@ class WoocommerceCountryBasedPayment {
 		$order_id = wc_get_order_id_by_order_key( $_GET['key'] );
 		$order = new WC_Order( $order_id );
 		$billing_address = $order->get_address();
-		$this->selected_country = $billing_address['country'];
+		$selected_country = $billing_address['country'];
 
 		foreach ( $payment_gateways as $gateway ) {
-			if ( get_option( $this->id . '_' . $gateway->id ) && ! in_array( $this->selected_country, get_option( $this->id . '_' . $gateway->id ) ) ) {
+			if ( get_option( $this->id . '_' . $gateway->id ) && ! in_array( $selected_country, get_option( $this->id . '_' . $gateway->id ) ) ) {
 				unset( $payment_gateways[ $gateway->id ] );
 			}
 		}

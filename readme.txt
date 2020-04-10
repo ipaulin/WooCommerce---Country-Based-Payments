@@ -1,10 +1,10 @@
 === WooCommerce - Country Based Payments ===
 Contributors: ivan_paulin, mensmaximus, freemius
-Donate link: http://ivanpaulin.com/
+Donate link: https://ivanpaulin.com/donate/?plugin=woocommerce-country-based-payments
 Tags: woocommerce, payment gateway, country, countries, payment gateways, country payment
-Requires at least: 4.7
-Tested up to: 5.1
-Stable tag: 1.2.4.2
+Requires at least: 5.0
+Tested up to: 5.4
+Stable tag: 1.3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -17,7 +17,14 @@ This plugin gives you option to choose which payment gateway will be available i
 If you need to have certain payment gateway to be available in all countries, don't set option for it.
 
 This WooCommerce addon is compatible with:
-* WooCommerce 3.5.4
+* WooCommerce 4.0.1
+
+__NOTE__: Backup your website before updating the plugin. Try to test a new version of the plugin on the staging server before using the plugin on a live site.
+This plugin comes as is; there's no guarantee that it will work with all payment gateways available. 
+I don't have access to the premium version of payment gateways, and I haven't tested this plugin with all payment gateways.
+Known payment gateways that this plugin does not work with:
+1. Amazon Payments
+2. PayPal Checkout
 
 == Installation ==
 
@@ -90,3 +97,10 @@ This WooCommerce addon is compatible with:
 
 = 1.2.4.2 =
 * Fix bug with Freemius SDK
+
+= 1.3 =
+* Fix issue with restrictions not applying on checkout page load - https://github.com/woocommerce/woocommerce/pull/24271
+* Apply WP coding standards
+
+= 1.3.2 =
+Fix Fatal error: Uncaught Error: Call to a member function get_billing_country() on null 
