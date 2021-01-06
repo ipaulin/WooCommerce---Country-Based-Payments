@@ -8,99 +8,84 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class WCCBPSettings extends WC_Settings_Page {
+class WCCBPSettings {
 
-    protected $id;
+	protected $id = 'wccbp';
 
-    public function __construct()
-    {
-        $this->id = 'wccbp';
-
-        $this->label = __( 'WCCBP', 'my-textdomain' );
-
-		add_filter( 'woocommerce_settings_tabs_array', array( $this, 'add_settings_page' ), 20 );
-
-		add_action( 'woocommerce_settings_' . $this->id, array( $this, 'output' ) );
-
-		add_action( 'woocommerce_sections_' . $this->id, array( $this, 'output_sections' ) );
-
-        add_action('woocommerce_settings_tabs_' . $this->id, array($this, 'addSectionToTab'));
-
-        add_action('woocommerce_update_options_' . $this->id, array($this, 'updateOptions'));
+	public function init() {
+		add_filter( 'woocommerce_settings_tabs_array', array( $this, 'add_settings_settings_tab' ), 50 );
+		add_action( 'woocommerce_settings_' . $this->id, array( $this, 'settings_page' ) );
+		add_action( 'woocommerce_update_options_' . $this->id, array( $this, 'update_options' ) );
 	}
-	
+
+	public function add_settings_settings_tab( $settings_tabs ) {
+
+		$settings_tabs[ $this->id ] = __( 'WCCBP', 'wccbp' );
+
+		return $settings_tabs;
+	}
+
+	public function settings_page() {
+		woocommerce_admin_fields( $this->create_tab_section() );
+		wp_nonce_field( 'wccbp_subscription_settings', '_wccbpnonce', false );
+	}
+
+
 	/**
-	 * Output the settings
+	 * Cerate input field for every available payment gateway
+	 *
+	 * @return $fields array
 	 */
-	public function output() {
+	public function create_fields() {
+		$available_gateways = WC()->payment_gateways->payment_gateways();
 
-		global $current_section;
+		$fields = array();
 
-		$settings = $this->get_settings( $current_section );
-		WC_Admin_Settings::output_fields( $settings );
+		foreach ( $available_gateways as $gateway ) {
+			$fields[] = array(
+				'name' => $gateway->method_title ? $gateway->method_title : $gateway->id,
+				'type' => 'multi_select_countries',
+				'id'   => $this->id . '_' . $gateway->id,
+			);
+		}
+
+		return $fields;
 	}
 
 
-    /**
-     * Cerate input field for every available payment gateway
-     *
-     * @return $fields array
-     */
-    public function createFields()
-    {
-        $available_gateways = WC()->payment_gateways->payment_gateways();
+	/**
+	 * Create section and include input fields in section
+	 *
+	 * @return array
+	 */
+	public function create_tab_section() {
+		$section = array();
 
-        $fields = array();
+		$section[] = array(
+			'name' => __( 'Country Based Payments', 'wccbp' ),
+			'desc' => __( 'Select in which countries payment gateways will be available', 'wccbp' ),
+			'type' => 'title',
+			'id'   => $this->id . '_title',
+		);
 
-        foreach($available_gateways as $gateway) {
-            $fields[] = array(
-                    'title'   => $gateway->method_title ? $gateway->method_title : $gateway->id,
-                    'type'    => 'multi_select_countries',
-                    'id'      => $this->id . '_' . $gateway->id,
-                );
-        }
+		$section = array_merge( $section, $this->create_fields() );
 
-        return $fields;
-    }
+		$section[] = array(
+			'type' => 'sectionend',
+			'id'   => $this->id . '_title',
+		);
 
-
-    /**
-     * Create section and include input fields in section
-     *
-     * @return array
-     */
-    public function createTabSection()
-    {
-        $section = array();
-
-        $section[] = array(
-                'title' => __( 'Country Based Payments', 'wccbp' ),
-                'desc'  => __( 'Select in which countries payment gateways will be available', 'wccbp' ),
-                'type'  => 'title',
-                'id'    => $this->id,
-            );
-
-        $section = array_merge($section, $this->createFields());
-
-        $section[] = array( 'type' => 'sectionend', 'id' => $this->id);
-
-        return $section;
-    }
+		return $section;
+	}
 
 
-    /**
-     * Add section to tab
-     */
-    public function addSectionToTab()
-    {
-        woocommerce_admin_fields($this->createTabSection());
-    }
-
-    /**
-     *  Update setting fields
-     */
-    public function updateOptions()
-    {
-        woocommerce_update_options($this->createFields());
-    }
+	/**
+	 *  Update setting fields
+	 */
+	public function update_options() {
+		if ( empty( $_POST['_wccbpnonce'] ) || ! wp_verify_nonce( $_POST['_wccbpnonce'], 'wccbp_subscription_settings' ) ) {
+			return;
+		}
+		woocommerce_update_options( $this->create_fields() );
+	}
 }
