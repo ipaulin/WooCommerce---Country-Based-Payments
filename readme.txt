@@ -3,8 +3,8 @@ Contributors: ivan_paulin, mensmaximus, freemius
 Donate link: https://ivanpaulin.com/donate/?plugin=woocommerce-country-based-payments
 Tags: woocommerce, payment gateway, country, countries, payment gateways, country payment
 Requires at least: 5.0
-Tested up to: 5.5.3
-Stable tag: 1.3.3
+Tested up to: 5.6
+Stable tag: 1.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -17,7 +17,7 @@ This plugin gives you option to choose which payment gateway will be available i
 If you need to have certain payment gateway to be available in all countries, don't set option for it.
 
 This WooCommerce addon is compatible with:
-* WooCommerce 4.6.2
+* WooCommerce 4.8.0
 
 __NOTE__: Backup your website before updating the plugin. Try to test a new version of the plugin on the staging server before using the plugin on a live site.
 This plugin comes as is; there's no guarantee that it will work with all payment gateways available. 
@@ -103,7 +103,11 @@ Known payment gateways that this plugin does not work with:
 * Apply WP coding standards
 
 = 1.3.2 =
-Fix Fatal error: Uncaught Error: Call to a member function get_billing_country() on null 
+* Fix Fatal error: Uncaught Error: Call to a member function get_billing_country() on null 
 
 = 1.3.3 =
-Fix WP REST API error code: rest_setting_setting_group_invalid, message: Invalid setting group
+* Fix WP REST API error code: rest_setting_setting_group_invalid, message: Invalid setting group
+
+= 1.4 =
+* Update Freemius SDK
+* Tested with WC 4.8.0
