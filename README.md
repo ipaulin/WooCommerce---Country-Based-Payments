@@ -27,8 +27,8 @@ Known payment gateways that this plugin does not work with:
 ### Compatibility
 
 This WooCommerce addon is compatible with:
-* WooCommerce 4.8.0
-* WordPress 5.6
+* WooCommerce 6.4.1
+* WordPress 5.9.3
 
 ### Installation
 
