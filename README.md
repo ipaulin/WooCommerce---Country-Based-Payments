@@ -1,7 +1,7 @@
 
 -----------------------
 
-# WooCommerce - Country Based Payments
+# Country Based Payments for WooCommerce
 
 Choose which payment gateway will be available in country/countries
 
@@ -33,7 +33,7 @@ This WooCommerce addon is compatible with:
 ### Installation
 
 1. Upload `woocommerce-country-based-payment` folder to the `/wp-content/plugins/` directory
-2. Activate the "WooCommerce - Country Based Payments" through the 'Plugins' menu in WordPress
+2. Activate the "Country Based Payments for WooCommerce" through the 'Plugins' menu in WordPress
 
 ### Changelog
 Please see `readme.txt` for changelog

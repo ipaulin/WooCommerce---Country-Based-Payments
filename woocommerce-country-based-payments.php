@@ -1,9 +1,9 @@
 <?php
 /**
- * Plugin Name: WooCommerce - Country Based Payments
+ * Plugin Name: Country Based Payments for WooCommerce
  * Plugin URI:  https://wordpress.org/plugins/woocommerce-country-based-payments/
  * Description: Choose in which country certain payment gateway will be available
- * Version:     1.4.1
+ * Version:     1.4.2
  * Author:      Ivan Paulin
  * Author URI:  http://ivanpaulin.com
  * License:     GPL2

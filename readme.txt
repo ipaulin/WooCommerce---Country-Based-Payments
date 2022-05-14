@@ -1,10 +1,10 @@
-=== WooCommerce - Country Based Payments ===
+=== Country Based Payments for WooCommerce ===
 Contributors: ivan_paulin, mensmaximus, freemius
 Donate link: https://ivanpaulin.com/donate/?plugin=woocommerce-country-based-payments
 Tags: woocommerce, payment gateway, country, countries, payment gateways, country payment
 Requires at least: 5.0
 Tested up to: 5.9.3
-Stable tag: 1.4.1
+Stable tag: 1.4.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -29,7 +29,7 @@ Known payment gateways that this plugin does not work with:
 == Installation ==
 
 1. Upload `woocommerce-country-based-payment` folder to the `/wp-content/plugins/` directory
-2. Activate the "WooCommerce - Country Based Payments" through the 'Plugins' menu in WordPress
+2. Activate the "Country Based Payments for WooCommerce" through the 'Plugins' menu in WordPress
 
 
 == Screenshots ==
@@ -115,3 +115,6 @@ Known payment gateways that this plugin does not work with:
 = 1.4.1 =
 * Update Freemius SDK
 * Tested with WC 6.4.1
+
+= 1.4.2 =
+* Rename Plugin due WooCommerce trademark complains
